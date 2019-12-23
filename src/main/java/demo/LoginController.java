@@ -39,6 +39,7 @@ public class LoginController extends HttpServlet
 								+ "window.location='home.jsp';"
 						+ "</script>");
 			}
+			
 			else
 			{
 				out.println("<script>"
