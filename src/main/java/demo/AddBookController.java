@@ -12,31 +12,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "RegistrationController",urlPatterns = "/RegistrationController")
-public class RegistrationController extends HttpServlet 
+@WebServlet(name="AddBookController",urlPatterns = {"/AddBookController"})
+public class AddBookController extends HttpServlet
 {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
 	{
-		User u=new User();
-		u.setUsername(req.getParameter("username"));
-		u.setEmail(req.getParameter("email"));
-		u.setPassword(req.getParameter("password"));
+		Book b=new Book();
+		b.setBookname(req.getParameter("bookname"));
+		b.setAuthor(req.getParameter("author"));
+		b.setPrice(Float.parseFloat(req.getParameter("price")));
 		
 		try 
 		{
 			Connection con=DriverManager.getConnection("jdbc:mysql://34.67.32.70:3306/db","root","root");
-			PreparedStatement ps=con.prepareStatement("insert into users values(?,?,?)");
-			ps.setString(1, u.getUsername());
-			ps.setString(2, u.getEmail());
-			ps.setString(3, u.getPassword());
+			PreparedStatement ps=con.prepareStatement("insert into books (bookname,author,price) values(?,?,?)");
+			ps.setString(1,b.getBookname());
+			ps.setString(2,b.getAuthor());
+			ps.setFloat(3,b.getPrice());
 			ps.executeUpdate();
-			resp.sendRedirect("login.jsp");
 			
 			PrintWriter out=resp.getWriter();
 			out.println("<script>"
-					+ "alert('Registered successfully!!!');"
-							+ "window.location='login.jsp';"
+					+ "alert('Book inserted successfully!!!!');"
+							+ "window.location='books.jsp';"
 					+ "</script>");
 		}
 		catch (Exception e) 

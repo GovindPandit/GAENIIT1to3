@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+   <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,6 +22,8 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+    
+      <c:if test="${u==null}">
       <li class="nav-item active">
         <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
@@ -30,9 +33,15 @@
       <li class="nav-item">
         <a class="nav-link" href="register.jsp">Register</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="addbook.jsp">Add Book</a>
-      </li>
+      </c:if>
+      <c:if test="${u!=null}">
+      	<li class="nav-item">
+        	<a class="nav-link" href="addbook.jsp">Add Book</a>
+      	</li>
+      	<li class="nav-item">
+        	<a class="nav-link" href="login.jsp">Logout</a>
+      	</li>
+      </c:if>
       <li class="nav-item">
         <a class="nav-link" href="books.jsp">Books</a>
       </li>

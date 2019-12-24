@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginController",urlPatterns = "/LoginController")
 public class LoginController extends HttpServlet 
@@ -32,8 +33,11 @@ public class LoginController extends HttpServlet
 			ResultSet rs=ps.executeQuery();
 			
 			PrintWriter out=resp.getWriter();
+			HttpSession hs=req.getSession();
+			
 			if(rs.next())
 			{
+				hs.setAttribute("u", u);
 				out.println("<script>"
 						+ "alert('Welcome "+u.getUsername()+"');"
 								+ "window.location='home.jsp';"
